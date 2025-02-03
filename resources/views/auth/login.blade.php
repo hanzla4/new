@@ -39,9 +39,7 @@
                                     <a class="logo-dark" href="index.html">
                                         <span><img src="assets/images/logo-dark.png" alt="" height="32"></span>
                                     </a>
-                                    <a class="logo-light" href="index.html">
-                                        <span><img src="assets/images/logo-light.png" alt="" height="32"></span>
-                                    </a>
+
                                 </div>
 
                                 <h1 class="h5 mb-1">Welcome Back!</h1>
@@ -84,13 +82,13 @@
                                                     </a>
                                                 @endif
                                             </div>
-                                            <div class="row mt-4 text-center">
+                                            {{-- <div class="row mt-4 text-center">
                                                 <div class="col-12">
                                                     <p class="text-muted mb-0">
                                                         Don't have an account? <a class="text-muted font-weight-medium ms-1" href="{{ route('register') }}"><b>Sign Up</b></a>
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </form>
