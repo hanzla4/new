@@ -6,6 +6,14 @@
 
 <div class="px-3">
     <div class="container-fluid">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
         <div class="py-3 py-lg-4">
             <div class="row">
                 <div class="col-lg-6">
@@ -20,6 +28,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -51,10 +60,16 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ ucfirst($user->role) }}</td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="setEditUserDetails({{ $user->id }})">Edit</button>
+                                            <!-- Edit Button -->
+                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#edit-user-modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-designation="{{ $user->designation }}" data-department="{{ $user->department }}" data-location="{{ $user->location }}" data-contact="{{ $user->contact }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}">Edit</button>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="setDeleteUserId({{ $user->id }})">Delete</button>
+                                            <!-- Delete Button -->
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -69,77 +84,54 @@
 </div>
 
 <!-- Edit User Modal -->
-<div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="edit-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header border-0">
-                <h5 class="modal-title" id="edit-modal-label">Edit User Details</h5>
+<div class="modal fade" id="edit-user-modal" tabindex="-1" aria-labelledby="edit-user-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-user-modal-label">Edit User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="edit-form" action="{{ route('users.update', 'userId') }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-3">
-                        <label for="edit-name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="edit-name" name="name" required>
+            <form id="edit-user-form" method="POST" action="{{ route('users.update', 0) }}">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="edit-name">Name</label>
+                        <input type="text" id="edit-name" name="name" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-designation" class="form-label">Designation</label>
-                        <input type="text" class="form-control" id="edit-designation" name="designation" required>
+                    <div class="form-group mb-3">
+                        <label for="edit-designation">Designation</label>
+                        <input type="text" id="edit-designation" name="designation" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-department" class="form-label">Department</label>
-                        <input type="text" class="form-control" id="edit-department" name="department" required>
+                    <div class="form-group mb-3">
+                        <label for="edit-department">Department</label>
+                        <input type="text" id="edit-department" name="department" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-location" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="edit-location" name="location" required>
+                    <div class="form-group mb-3">
+                        <label for="edit-location">Location</label>
+                        <input type="text" id="edit-location" name="location" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-contact" class="form-label">Contact</label>
-                        <input type="text" class="form-control" id="edit-contact" name="contact" required>
+                    <div class="form-group mb-3">
+                        <label for="edit-contact">Contact</label>
+                        <input type="text" id="edit-contact" name="contact" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="edit-email" name="email" required>
+                    <div class="form-group mb-3">
+                        <label for="edit-email">Email</label>
+                        <input type="email" id="edit-email" name="email" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-role" class="form-label">Role</label>
-                        <select class="form-select" id="edit-role" name="role" required>
+                    <div class="form-group mb-3">
+                        <label for="edit-role">Role</label>
+                        <select id="edit-role" name="role" class="form-control" required>
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
                         </select>
                     </div>
-                    <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title text-danger" id="delete-modal-label">Confirm Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="text-dark">Are you sure you want to delete this user? This action is permanent.</p>
-            </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form id="delete-form" action="{{ route('users.destroy', $user->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -148,41 +140,36 @@
 
 @section('scripts')
 <script>
-    let deleteUserId = null;
-    let editUserId = null;
-
-    // Set the user ID dynamically in the form action for delete
-    function setDeleteUserId(userId) {
-        deleteUserId = userId;
-        const form = document.getElementById('delete-form');
-        form.action = '/users/' + userId;  // Adjust the URL if necessary
-    }
-
-    // Set the user details dynamically for edit modal
-    function setEditUserDetails(userId) {
-        // Get the user data based on the userId (you can use AJAX for this or pass data via the controller)
-        editUserId = userId;
-
-        // Adjust the form action URL
-        const form = document.getElementById('edit-form');
-        form.action = '/users/' + userId;
-
-        // Fetch the user data and populate the fields (this part needs to be handled on the backend or via JavaScript/AJAX)
-        // For now, you can populate the fields manually or use an AJAX request to get user details
-        // Example data (replace with real data)
-        document.getElementById('edit-name').value = 'John Doe';
-        document.getElementById('edit-designation').value = 'Software Developer';
-        document.getElementById('edit-department').value = 'Engineering';
-        document.getElementById('edit-location').value = 'New York';
-        document.getElementById('edit-contact').value = '1234567890';
-        document.getElementById('edit-email').value = 'john.doe@example.com';
-        document.getElementById('edit-role').value = 'user'; // or 'admin'
-    }
-
     $(document).ready(function() {
+        // DataTable initialization
         $('#user-table').DataTable({
             responsive: true,
             scrollX: true
+        });
+
+        // Edit button click handler to populate the modal form with user data
+        $('#edit-user-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('id');
+            var name = button.data('name');
+            var designation = button.data('designation');
+            var department = button.data('department');
+            var location = button.data('location');
+            var contact = button.data('contact');
+            var email = button.data('email');
+            var role = button.data('role');
+
+            var modal = $(this);
+            modal.find('#edit-name').val(name);
+            modal.find('#edit-designation').val(designation);
+            modal.find('#edit-department').val(department);
+            modal.find('#edit-location').val(location);
+            modal.find('#edit-contact').val(contact);
+            modal.find('#edit-email').val(email);
+            modal.find('#edit-role').val(role);
+
+            // Update the form action to point to the correct user ID
+            modal.find('#edit-user-form').attr('action', '/users/' + id);  // Ensure that this is dynamically updated
         });
     });
 </script>

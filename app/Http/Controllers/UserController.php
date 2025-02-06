@@ -56,55 +56,64 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    // Show edit form
-    public function edit($id)
+    public function addUserPage($user = null)
     {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        $user = $user ? User::findOrFail($user) : null;  // If a user is passed, get it, otherwise it's a new user.
+        return view('adduser', compact('user'));  // Pass the user (or null for new user) to the view.
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'designation' => 'nullable|string',
-            'department' => 'nullable|string',
-            'location' => 'nullable|string',
-            'contact' => 'nullable|string',
-            'role' => 'nullable|string',
-            'password' => 'nullable|string|min:8', // Ensure password is hashed if updated
-        ]);
+ public function destroy($id)
+{
+    // Find the user by ID
+    $user = User::find($id);
 
-        $user = User::findOrFail($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->designation = $request->input('designation');
-        $user->department = $request->input('department');
-        $user->location = $request->input('location');
-        $user->contact = $request->input('contact');
-        $user->role = $request->input('role');
-
-        // Only update password if it's provided
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->input('password'));
-        }
-
-        $user->save();
-
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    // Proceed with deletion if user is found
+    if ($user) {
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 
-    public function destroy($id)
-    {
-        $user = User::find($id);
+    // If user is not found, return an error message
+    return redirect()->route('users.index')->with('error', 'User not found.');
+}
 
-        if ($user) {
-            $user->delete();
-            return redirect()->route('users.index')->with('success', 'User deleted successfully.');
-        }
 
+
+
+public function update(Request $request, $id)
+{
+    dd($id);
+    // Validate the incoming data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'designation' => 'required|string|max:255',
+        'department' => 'required|string|max:255',
+        'location' => 'required|string|max:255',
+        'contact' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'role' => 'required|in:admin,user',
+    ]);
+
+    // Find the user by ID
+    $user = User::find($id);
+
+    // If the user is not found
+    if (!$user) {
         return redirect()->route('users.index')->with('error', 'User not found.');
     }
 
+    // Update the user data
+    $user->update($validatedData);
+
+    // Debug: dd() to inspect the updated user data
+    dd($user);  // This will dump the user object and stop further execution
+
+    // Redirect back with success message (this line won't be executed if dd() is used)
+    return redirect()->route('users.index')->with('success', 'User updated successfully.');
 }
+
+}
+
+
+
+

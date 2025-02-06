@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RolePermissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,20 @@ use App\Http\Controllers\DashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('roles', [RolePermissionController::class, 'index'])->name('roles.index');
+    Route::get('roles/create', [RolePermissionController::class, 'create'])->name('roles.create');
+    Route::post('roles', [RolePermissionController::class, 'store'])->name('roles.store');
+
+    Route::get('permissions', [RolePermissionController::class, 'showPermissions'])->name('permissions.index');
+    Route::post('permissions', [RolePermissionController::class, 'storePermission'])->name('permissions.store');
+
+    Route::post('assign-role', [RolePermissionController::class, 'assignRoleToUser'])->name('assignRoleToUser');
+});
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -29,13 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// users
-Route::resource('users', UserController::class);
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
-Route::middleware(['web'])->group(function () {
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-});
+// Custom route for adding a new user
+Route::get('/add-user', [UserController::class, 'addUserPage'])->name('adduser');
+
+
+
+Route::resource('users', UserController::class);
+
 
 
 Route::resource('dashboard', DashboardController::class)->only(['index']);

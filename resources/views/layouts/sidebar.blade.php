@@ -80,18 +80,169 @@
                                         <span class="menu-icon"><i data-lucide="users"></i></span>
                                         <span class="menu-text"> User List </span>
                                     </a>
-
                                 </li>
                                 <li class="menu-item">
-                                    <a class='menu-link' href='pages-invoice.html'>
+                                    <a class="menu-link" href="{{ route('adduser') }}">
                                         <span class="menu-icon"><i data-lucide="user-plus"></i></span>
                                         <span class="menu-text">Add user</span>
                                     </a>
                                 </li>
-
+                                <li class="menu-item" id="rolesPermissionsMenu">
+                                    <a class="menu-link" href="">
+                                        <span class="menu-icon"><i data-lucide="lock" id="rolesIcon"></i></span>
+                                        <span class="menu-text" id="rolesText">Roles & Permissions</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
+
+
+
+                    <li class="menu-item">
+                        <a href="#menuExpagesaccount" data-bs-toggle="collapse" class="menu-link waves-effect">
+                            <span class="menu-icon"><i data-lucide="dollar-sign"></i></span>
+                            <span class="menu-text">Accounts</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="menuExpagesaccount">
+                            <ul class="sub-menu">
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="credit-card"></i></span>
+                                        <span class="menu-text">Banking</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="activity"></i></span>
+                                        <span class="menu-text">Transactions</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="clipboard"></i></span>
+                                        <span class="menu-text">Registers</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="file-text"></i></span>
+                                        <span class="menu-text">Bills</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="check-circle"></i></span>
+                                        <span class="menu-text">Check</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="pie-chart"></i></span>
+                                        <span class="menu-text">Charts of Accounts</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="bar-chart"></i></span>
+                                        <span class="menu-text">Reports</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="settings"></i></span>
+                                        <span class="menu-text">Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                    <li class="menu-item">
+                        <a href="#menuHR" data-bs-toggle="collapse" class="menu-link waves-effect">
+                            <span class="menu-icon"><i data-lucide="user"></i></span>
+                            <span class="menu-text">HR</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="menuHR">
+                            <ul class="sub-menu">
+                                <!-- Employee Management -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="users"></i></span>
+                                        <span class="menu-text">Employee Management</span>
+                                    </a>
+                                </li>
+
+                                <!-- Payroll -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="credit-card"></i></span>
+                                        <span class="menu-text">Payroll</span>
+                                    </a>
+                                </li>
+
+                                <!-- Leave Management -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="calendar"></i></span>
+                                        <span class="menu-text">Leave Management</span>
+                                    </a>
+                                </li>
+
+                                <!-- Attendance -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="check-circle"></i></span>
+                                        <span class="menu-text">Attendance</span>
+                                    </a>
+                                </li>
+
+                                <!-- Recruitment -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="user-plus"></i></span>
+                                        <span class="menu-text">Recruitment</span>
+                                    </a>
+                                </li>
+
+                                <!-- Performance -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="star"></i></span>
+                                        <span class="menu-text">Performance</span>
+                                    </a>
+                                </li>
+
+                                <!-- Training -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="book"></i></span>
+                                        <span class="menu-text">Training</span>
+                                    </a>
+                                </li>
+
+                                <!-- Reports -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="bar-chart"></i></span>
+                                        <span class="menu-text">Reports</span>
+                                    </a>
+                                </li>
+
+                                <!-- Settings -->
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="settings"></i></span>
+                                        <span class="menu-text">Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
 
                 </ul>
             </div>
