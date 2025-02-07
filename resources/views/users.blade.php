@@ -6,13 +6,7 @@
 
 <div class="px-3">
     <div class="container-fluid">
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
 
-        @if(session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
-        @endif
 
         <div class="py-3 py-lg-4">
             <div class="row">
@@ -34,6 +28,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive" style="overflow-x:auto;">
+                            @if(session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
                             <table id="user-table" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
@@ -61,7 +62,8 @@
                                         <td>{{ ucfirst($user->role) }}</td>
                                         <td class="text-center">
                                             <!-- Edit Button -->
-                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#edit-user-modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-designation="{{ $user->designation }}" data-department="{{ $user->department }}" data-location="{{ $user->location }}" data-contact="{{ $user->contact }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}">Edit</button>
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+
                                         </td>
                                         <td class="text-center">
                                             <!-- Delete Button -->

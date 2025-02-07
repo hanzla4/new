@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,9 +52,17 @@ Route::get('/add-user', [UserController::class, 'addUserPage'])->name('adduser')
 
 
 Route::resource('users', UserController::class);
+Route::get('/edit-user', [UserController::class, 'editUserView']);
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 
 
 
 Route::resource('dashboard', DashboardController::class)->only(['index']);
 
+
+
+Route::get('/products', [ProductController::class, 'showProductList'])->name('products.list');
+Route::get('/Addproducts', [ProductController::class, 'addProduct'])->name('products.AddProduct');
+Route::get('/ProductsReports', [ProductController::class, 'ProductsReports'])->name('products.ProductReports');
 require __DIR__.'/auth.php';

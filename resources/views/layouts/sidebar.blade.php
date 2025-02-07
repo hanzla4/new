@@ -90,7 +90,58 @@
                                 <li class="menu-item" id="rolesPermissionsMenu">
                                     <a class="menu-link" href="">
                                         <span class="menu-icon"><i data-lucide="lock" id="rolesIcon"></i></span>
-                                        <span class="menu-text" id="rolesText">Roles & Permissions</span>
+                                        <span class="menu-text" id="rolesText"> Permissions</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+                    <li class="menu-item">
+                        <a href="#menuExpagesproduct" data-bs-toggle="collapse" class="menu-link waves-effect">
+                            <span class="menu-icon"><i data-lucide="box"></i></span>
+                            <span class="menu-text">Manage Product</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="menuExpagesproduct">
+                            <ul class="sub-menu">
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="{{ route('products.list') }}">
+                                        <span class="menu-icon"><i data-lucide="list"></i></span>
+                                        <span class="menu-text">Product List</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="{{ route('products.AddProduct') }}">
+                                        <span class="menu-icon"><i data-lucide="plus-circle"></i></span>
+                                        <span class="menu-text">Add Product</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="edit"></i></span>
+                                        <span class="menu-text">Edit Product</span>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="tag"></i></span>
+                                        <span class="menu-text">Categories</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="{{ route('products.ProductReports') }}">
+                                        <span class="menu-icon"><i data-lucide="bar-chart"></i></span>
+                                        <span class="menu-text">Reports</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link waves-effect" href="">
+                                        <span class="menu-icon"><i data-lucide="settings"></i></span>
+                                        <span class="menu-text">Settings</span>
                                     </a>
                                 </li>
                             </ul>
@@ -140,7 +191,7 @@
                                 <li class="menu-item">
                                     <a class="menu-link waves-effect" href="">
                                         <span class="menu-icon"><i data-lucide="pie-chart"></i></span>
-                                        <span class="menu-text">Charts of Accounts</span>
+                                        <span class="menu-text"> Accounts</span>
                                     </a>
                                 </li>
                                 <li class="menu-item">
@@ -242,6 +293,7 @@
                             </ul>
                         </div>
                     </li>
+
 
 
                 </ul>

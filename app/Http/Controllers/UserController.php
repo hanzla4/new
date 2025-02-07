@@ -80,36 +80,29 @@ class UserController extends Controller
 
 
 
+
+
+
+public function editUserView()
+{
+    return view('EditUser'); // Assuming 'EditUser' is in resources/views
+}
+
+
+public function edit($id)
+{
+    $user = User::findOrFail($id); // Fetch the user from the database
+    return view('EditUser', compact('user')); // Pass the user to the view
+}
+
+
+
 public function update(Request $request, $id)
 {
-    dd($id);
-    // Validate the incoming data
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'designation' => 'required|string|max:255',
-        'department' => 'required|string|max:255',
-        'location' => 'required|string|max:255',
-        'contact' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'role' => 'required|in:admin,user',
-    ]);
+    $user = User::findOrFail($id);
+    $user->update($request->all());
 
-    // Find the user by ID
-    $user = User::find($id);
-
-    // If the user is not found
-    if (!$user) {
-        return redirect()->route('users.index')->with('error', 'User not found.');
-    }
-
-    // Update the user data
-    $user->update($validatedData);
-
-    // Debug: dd() to inspect the updated user data
-    dd($user);  // This will dump the user object and stop further execution
-
-    // Redirect back with success message (this line won't be executed if dd() is used)
-    return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    return redirect()->route('users.index')->with('success', 'User updated successfully');
 }
 
 }
